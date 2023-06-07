@@ -18,8 +18,32 @@ body {
   color: #545149;
   background-color: #f4f1ec;
   font-size: 24px;
+  font-family: 'Source Sans 3', sans-serif;
 }
 
 /*
  * Additional CSS can be defined below or in other CSS files, as per instructions
  */
+
+ .nav-container-left{
+  margin: 1.5em;
+  font-family: 'Bungee', cursive;
+  text-align: center;
+ }
+
+ .nav-container-right{
+  margin: 1.5em;
+  text-align: center;
+  flex-direction: column;
+  display: flex;
+ }
+
+ .nav-container{
+  height: 120px;
+  color: #FFFFFF;
+  background-color: #4056A1;
+  font-size: 24px;
+  display: flex;
+  justify-content: space-between;
+} 
+ 
