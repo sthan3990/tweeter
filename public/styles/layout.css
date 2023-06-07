@@ -25,25 +25,42 @@ body {
  * Additional CSS can be defined below or in other CSS files, as per instructions
  */
 
- .nav-container-left{
-  margin: 1.5em;
-  font-family: 'Bungee', cursive;
-  text-align: center;
- }
 
- .nav-container-right{
-  margin: 1.5em;
-  text-align: center;
+ /* 
+    The visible portion of the header should have a height of 400px and be 100% the width of its parent container
+    The avatar should be centered vertically and horizontally (Hint: the justify-content and align-items properties are helpful for centering things if you're using Flexbox.)
+    The name should be centered below the avatar
+    The background-color should be a different colour than the nav and the body
+*/
+.profile-section {
+  height: 620px;
+  width: 100%;
+  display: flex;
   flex-direction: column;
-  display: flex;
- }
+  align-items: center;
+  justify-content: center;
+  background-color: #d79623;
+  background-image: url("https://www.transparenttextures.com/patterns/asfalt-dark.png");
+}
 
- .nav-container{
-  height: 120px;
-  color: #FFFFFF;
-  background-color: #4056A1;
-  font-size: 24px;
+.profile-avatar-section img{
+  margin: 5.5em;
+}
+
+.profile-name-section{
   display: flex;
-  justify-content: space-between;
-} 
- 
+  color: white;
+  font-weight: 300;
+}
+
+
+/* 90% of the width of its parent element
+center aligned to the body
+the same background colour as the <body> element */
+.container{
+  min-width: 90%;
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  background-color: #f4f1ec;
+}
