@@ -5,7 +5,6 @@ const Chance      = require("chance"),
 
 const md5 = require('md5');
 
-
 module.exports = {
   generateRandomUser: () => {
     const gender    = chance.gender();
