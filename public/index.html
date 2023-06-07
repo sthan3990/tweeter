@@ -24,13 +24,55 @@
   <!-- App CSS -->
   <link rel="stylesheet" href="/styles/layout.css" type="text/css" />
   <link rel="stylesheet" href="/styles/nav.css" type="text/css" />
+  <link rel="stylesheet" href="/styles/new-tweet.css" type="text/css" />
 
   <!-- External JS -->
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 
   <!-- App JS -->
   <script type="text/javascript" src="/scripts/client.js"></script>
+
+
+  <script>
+
+    $(document).ready(function (e) {
+
+      let maxCharacters = 140;
+
+      $("#tweet-text").value = "";
+
+     
+      $("#tweet-text").on('input', function (text) {
+
+        // for example if you delete everything. 
+        if (this.textLength === 0){ 
+          
+          // reset counter
+          maxCharacters = 140;
+
+          // reset styling
+          $("#tweet-text").first().next().find("output").css("color", "#545149");
+        }
+
+
+        maxCharacters -= this.textLength;
+
+        // change the value of <output> </output> 
+        $("#tweet-text").first().next().find("output").text(maxCharacters);
+
+        if (maxCharacters <= 0) {
+          console.log("Less than 0, change formatting")
+          // Output pointer to modify CSS
+          $("#tweet-text").first().next().find("output").css("color", "red");
+        }
+      });
+
+    });
+  </script>
+
+
 </head>
+
 
 <body>
 
@@ -51,15 +93,25 @@
     </div>
     <br>
     <div class="profile-name-section">
-      <h2><strong>Your  </strong>Name</h2>
+      <h2><strong>Your </strong>Name</h2>
     </div>
   </header>
 
   <!-- Page-specific (main) content here -->
   <main class="container">
-    <h1>HELLLO</h1>
-    <h3>HEl20</h3>
-    <p>3002-</p>
+
+    <section class="new-tweet">
+      <h2>Compose Tweet</h2>
+      <form action="/tweets" method="POST">
+        <label for="tweet-text">What are you humming about?</label>
+        <textarea name="text" id="tweet-text"></textarea>
+        <div class="new-tweet-bottom">
+          <button type="submit">Tweet</button>
+          <output name="counter" class="counter" for="tweet-text">140</output>
+        </div>
+      </form>
+    </section>
+
   </main>
 
 
