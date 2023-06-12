@@ -6,7 +6,10 @@
 html {
   box-sizing: border-box;
 }
-*, *:before, *:after {
+
+*,
+*:before,
+*:after {
   box-sizing: inherit;
 }
 
@@ -16,7 +19,7 @@ html {
 
 body {
   color: #545149;
-  background-color: #f4f1ec;
+  background-color: #f3f1ec;
   font-size: 24px;
   font-family: 'Source Sans 3', sans-serif;
 }
@@ -26,7 +29,7 @@ body {
  */
 
 
- /* 
+/* 
     The visible portion of the header should have a height of 400px and be 100% the width of its parent container
     The avatar should be centered vertically and horizontally (Hint: the justify-content and align-items properties are helpful for centering things if you're using Flexbox.)
     The name should be centered below the avatar
@@ -43,11 +46,11 @@ body {
   background-image: url("https://www.transparenttextures.com/patterns/asfalt-dark.png");
 }
 
-.profile-avatar-section img{
+.profile-avatar-section img {
   margin: 5.5em;
 }
 
-.profile-name-section{
+.profile-name-section {
   display: flex;
   color: white;
   font-weight: 300;
@@ -57,7 +60,7 @@ body {
 /* 90% of the width of its parent element
 center aligned to the body
 the same background colour as the <body> element */
-.container{
+.container {
   min-width: 90%;
   align-items: center;
   display: flex;

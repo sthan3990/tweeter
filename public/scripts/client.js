@@ -31,6 +31,29 @@ $(document).ready(function (e) {
       "created_at": 1461113959088
     }
   ]
+  
+  // Form submission 
+  $( "#newTweets" ).on( "submit", function( event ) {
+
+    // prevent the default form submission behaviour of restarting the page
+    event.preventDefault();
+    
+    // create a date string
+    const date = new Date();
+    const month = date.getMonth();
+    const day  = date.getDate();
+    const year = date.getFullYear();
+    const dateString = month + "/" + day + "/" + year; 
+    dateString.toString();
+
+    // serialize the data 
+    let formData = $("form").serialize();
+
+    // send this off (POST)
+    $.post( "index.html", { dateString, formData } );
+
+  });
+
 
   let maxCharacters = 140;
 
@@ -89,7 +112,8 @@ $(document).ready(function (e) {
 
           ${tweet.user.name};
           
-        </div>        <p>${tweet.user.handle};</p>      
+        </div>       
+        <p>${tweet.user.handle};</p>      
 
       </header>
 

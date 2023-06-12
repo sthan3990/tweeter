@@ -46,7 +46,7 @@
     </div>
     <div class="nav-container-right">
       <span><strong>Write A New </strong>Tweet</span>
-      <i class="fa-solid fa-angles-down fa-bounce" style="color: red;"></i>
+      <a href="index.html#tweet-text"><i class="fa-solid fa-angles-down fa-bounce" style="color: red;"></i></a>
     </div>
   </nav>
 
@@ -65,7 +65,7 @@
 
     <section class="new-tweet">
       <h2>Compose Tweet</h2>
-      <form action="/tweets" method="POST">
+      <form id="newTweets" action="/tweets" method="POST">
         <label for="tweet-text">What are you humming about?</label>
         <textarea name="text" id="tweet-text"></textarea>
         <div class="new-tweet-bottom">
