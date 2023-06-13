@@ -6,60 +6,54 @@
 
 $(document).ready(function (e) {
 
-  const data = [
-    {
-      "user": {
-        "name": "Newton",
-        "avatars": "https://i.imgur.com/73hZDYK.png"
-        ,
-        "handle": "@SirIsaac"
-      },
-      "content": {
-        "text": "If I have seen further it is by standing on the shoulders of giants"
-      },
-      "created_at": 1461116232227
-    },
-    {
-      "user": {
-        "name": "Descartes",
-        "avatars": "https://i.imgur.com/nlhLi3I.png",
-        "handle": "@rd"
-      },
-      "content": {
-        "text": "Je pense , donc je suis"
-      },
-      "created_at": 1461113959088
-    }
-  ]
-  
-  // Form submission 
-  $( "#newTweets" ).on( "submit", function( event ) {
+  // Form submission POST
+  $("#form-new-tweets").on("submit", function (event) {
 
     // prevent the default form submission behaviour of restarting the page
     event.preventDefault();
     
-    // create a date string
-    const date = new Date();
-    const month = date.getMonth();
-    const day  = date.getDate();
-    const year = date.getFullYear();
-    const dateString = month + "/" + day + "/" + year; 
-    dateString.toString();
+    // check if tweet content is >= 140 
+    if($("#tweet-text").textLength < 140) {
+     
+    // serialize the form data 
+    let formData = $('form').serialize();
 
-    // serialize the data 
-    let formData = $("form").serialize();
+    //get the action-url of the form
+    let actionurl = event.currentTarget.action;
 
     // send this off (POST)
-    $.post( "index.html", { dateString, formData } );
+    $.post(actionurl, formData);
+    
+    $("#tweet-text").val("");
 
+    $("#tweet-text").next().find("output").text("140");
+
+    loadtweets();
+    }
+    else {
+      alert("Too Long");
+    }
   });
+  
+  const loadtweets = function () {
 
+    $.ajax('/tweets', {
+      method: 'GET',
+      dataType: 'json',
 
-  let maxCharacters = 140;
+      success: (tweets) => {
+        renderTweets(tweets);
+      },
+      error: (error) => {
+        console.error(error);
+      },
+    });
+  };
 
-  $("#tweet-text").value = "";
 
   $("#tweet-text").on('input', function (text) {
+    
+    let maxCharacters = 140;
 
     // for example if you delete everything. 
     if (this.textLength === 0) {
@@ -77,29 +71,30 @@ $(document).ready(function (e) {
     $("#tweet-text").next().find("output").text(maxCharacters);
 
     if (maxCharacters <= 0) {
-      console.log("Less than 0, change formatting")
       // Output pointer to modify CSS
       $("#tweet-text").next().find("output").css("color", "red");
     }
   });
 
-
   const renderTweets = function (tweets) {
 
-    // loops through tweets
-    for (let i = 0; i < tweets.length; i++) {
+    $("#tweets-container").empty();
 
-      let tweet = createTweetElement(tweets[i]);
-
-      $("#tweets-container").append(tweet);
+    if(tweets){
+       // loops through tweets
+      for (let i = 0; i < tweets.length; i++) {
+        let tweet = createTweetElement(tweets[i]);
+        $("#tweets-container").append(tweet);
+      }
     }
+   
     // calls createTweetElement for each tweet
     // takes return value and appends it to the tweets container
   }
 
-  const createTweetElement = function (tweet) {
 
-    console.log(tweet);
+  const createTweetElement = function (tweet) {
+    //init timeago 
 
     let $tweet = `
       <article>
@@ -110,20 +105,21 @@ $(document).ready(function (e) {
 
           <img src="${tweet.user.avatars}" >
 
-          ${tweet.user.name};
+          ${tweet.user.name}
           
         </div>       
-        <p>${tweet.user.handle};</p>      
+        <p>${tweet.user.handle}</p>      
 
       </header>
 
       <div class="tweet-container-body">
-      ${tweet.content.text};
+      ${tweet.content.text}
 
       </div>
 
       <footer>
-      ${tweet.created_at};
+
+      <abbr class="timeago">Created ${tweet.created_at} ago</abbr>
 
       <div class="tweet-social-icons">
         <i class="fas fa-share-alt"></i>
@@ -133,15 +129,12 @@ $(document).ready(function (e) {
       
       </footer>
     
-      
       </article>
-    
-    
+        
     `;
     return $tweet;
   }
-
-  renderTweets(data);
+  renderTweets();
 
 });
 

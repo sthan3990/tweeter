@@ -30,12 +30,13 @@
   <!-- External JS -->
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 
-  <!-- App JS -->
+  <!-- timeago JS -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/timeago.js/4.0.2/timeago.min.js" integrity="sha512-SVDh1zH5N9ChofSlNAK43lcNS7lWze6DTVx1JCXH1Tmno+0/1jMpdbR8YDgDUfcUrPp1xyE53G42GFrcM0CMVg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+  <!-- APP JS -->
   <script type="text/javascript" src="/scripts/client.js"></script>
 
-
 </head>
-
 
 <body>
 
@@ -65,11 +66,11 @@
 
     <section class="new-tweet">
       <h2>Compose Tweet</h2>
-      <form id="newTweets" action="/tweets" method="POST">
+      <form id="form-new-tweets" action="/tweets" method="POST">
         <label for="tweet-text">What are you humming about?</label>
         <textarea name="text" id="tweet-text"></textarea>
         <div class="new-tweet-bottom">
-          <button type="submit">Tweet</button>
+          <button type="submit" id="submitBtn">Tweet</button>
           <output name="counter" class="counter" for="tweet-text">140</output>
         </div>
       </form>
