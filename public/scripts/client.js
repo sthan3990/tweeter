@@ -13,9 +13,11 @@ $(document).ready(function (e) {
     event.preventDefault();
     
     // check if tweet content is >= 140 
-    if($("#tweet-text").textLength < 140) {
-     
-    // serialize the form data 
+    if($("#tweet-text").val().Length > 140) {
+      alert("Too Long");
+    }
+    else {
+       // serialize the form data 
     let formData = $('form').serialize();
 
     //get the action-url of the form
@@ -28,14 +30,25 @@ $(document).ready(function (e) {
 
     $("#tweet-text").next().find("output").text("140");
 
-    loadtweets();
-    }
-    else {
-      alert("Too Long");
+    loadTweets();
+
+    resetTweetArea();
     }
   });
   
-  const loadtweets = function () {
+  const resetTweetArea = function () {
+   
+    // clear text area
+    $("#tweet-text").val.empty();
+
+    $("#tweet-text").next().find("output").text.empty();
+
+    // reset styling
+    $("#tweet-text").first().next().find("output").css("color", "#545149");
+  }
+
+
+  const loadTweets = function () {
 
     $.ajax('/tweets', {
       method: 'GET',
@@ -74,6 +87,9 @@ $(document).ready(function (e) {
       // Output pointer to modify CSS
       $("#tweet-text").next().find("output").css("color", "red");
     }
+    else{
+      $("#tweet-text").first().next().find("output").css("color", "#545149");
+    }
   });
 
   const renderTweets = function (tweets) {
@@ -94,7 +110,6 @@ $(document).ready(function (e) {
 
 
   const createTweetElement = function (tweet) {
-    //init timeago 
 
     let $tweet = `
       <article>
@@ -137,5 +152,4 @@ $(document).ready(function (e) {
   renderTweets();
 
 });
-
 
