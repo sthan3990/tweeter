@@ -14,7 +14,7 @@ $(document).ready(function (e) {
     
     // check if tweet content is >= 140 
     if($("#tweet-text").val().Length > 140) {
-      alert("Too Long");
+      alert("Tweet is too long, make it shorter!");
     }
     else {
        // serialize the form data 
@@ -39,14 +39,15 @@ $(document).ready(function (e) {
   const resetTweetArea = function () {
    
     // clear text area
-    $("#tweet-text").val.empty();
+    if($("#tweet-text").val().length != 0){
+      $("#tweet-text").val.empty();
+    }
 
     $("#tweet-text").next().find("output").text.empty();
 
     // reset styling
     $("#tweet-text").first().next().find("output").css("color", "#545149");
   }
-
 
   const loadTweets = function () {
 
@@ -83,7 +84,7 @@ $(document).ready(function (e) {
     // change the value of <output> </output> 
     $("#tweet-text").next().find("output").text(maxCharacters);
 
-    if (maxCharacters <= 0) {
+    if (maxCharacters < 0) {
       // Output pointer to modify CSS
       $("#tweet-text").next().find("output").css("color", "red");
     }
@@ -100,7 +101,7 @@ $(document).ready(function (e) {
        // loops through tweets
       for (let i = 0; i < tweets.length; i++) {
         let tweet = createTweetElement(tweets[i]);
-        $("#tweets-container").append(tweet);
+        $("#tweets-container").prepend(tweet);
       }
     }
    
@@ -110,7 +111,7 @@ $(document).ready(function (e) {
 
 
   const createTweetElement = function (tweet) {
-
+     
     let $tweet = `
       <article>
       
@@ -134,7 +135,7 @@ $(document).ready(function (e) {
 
       <footer>
 
-      <abbr class="timeago">Created ${tweet.created_at} ago</abbr>
+      <abbr id="timeago" class="timeago">Created ${timeago.format(tweet.created_at)}</abbr>
 
       <div class="tweet-social-icons">
         <i class="fas fa-share-alt"></i>
@@ -149,7 +150,10 @@ $(document).ready(function (e) {
     `;
     return $tweet;
   }
+
   renderTweets();
 
 });
+ 
+
 
