@@ -22,6 +22,7 @@
     crossorigin="anonymous" referrerpolicy="no-referrer" />
 
   <!-- App CSS -->
+  <link rel="stylesheet" href="/styles/header.css" type="text/css" />
   <link rel="stylesheet" href="/styles/layout.css" type="text/css" />
   <link rel="stylesheet" href="/styles/nav.css" type="text/css" />
   <link rel="stylesheet" href="/styles/new-tweet.css" type="text/css" />
@@ -51,9 +52,10 @@
     </div>
   </nav>
 
+  <div class="main-container">
   <header class="profile-section">
     <div class="profile-avar-section">
-      <img src="/images/profile-hex.png">
+      <img class="profile-picture" src="/images/profile-hex.png">
     </div>
     <br>
     <div class="profile-name-section">
@@ -77,11 +79,11 @@
     </section>
 
  
-    <section id="tweets-container"></section>
+    <section class="tweets" id="tweets-container"></section>
 
   </main>
 
-
+</div>
 </body>
 
 </html>

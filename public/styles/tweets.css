@@ -5,30 +5,30 @@ article {
   padding: 0.5em;
 }
 
-header {
+.tweet-header{
   display: flex;
+  flex-direction: row;
+  justify-content: space-between;
 }
 
-.tweet-header p {
-  margin-left: auto;
-  margin-top: auto;
-  color: #d2dbe6;
-  font-weight: 600;
+.tweet-user{
+  display: flex;
+  flex-direction: row;
 }
-
+.tweet-avatar{
+  display: flex;
+  align-items: center;
+}
 .tweet-avatar img {
   height: 48px;
-  width: 48px;
-  vertical-align: middle;
+  padding-right: 0.5em;
 }
-
 
 .tweet-container-body {
   margin-bottom: 0.5em;
   border-color: black;
   border-bottom: solid;
 }
-
 
 footer {
   display: flex;
@@ -51,3 +51,6 @@ footer {
 .fa-heart:hover{
   color: orange;
 }
+
+ 
+

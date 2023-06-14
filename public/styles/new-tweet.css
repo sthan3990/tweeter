@@ -3,6 +3,7 @@
   flex-direction: column;
   font-family: 'Bungee', cursive;
   justify-content: center;
+  margin: 2em;
 }
 
 .new-tweet h2 {
@@ -41,3 +42,9 @@
   margin-left: auto;
  }
  
+ @media screen and (max-width: 768px) {
+  .new-tweet textarea {
+    height: 80px;
+    width: 360px;
+  }
+}

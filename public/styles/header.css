@@ -1,0 +1,21 @@
+.profile-section {
+  height: 350px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background-color: #d79623;
+  background-image: url("https://www.transparenttextures.com/patterns/asfalt-dark.png");
+  margin-top: 6em;
+}
+
+.profile-picture{
+  margin-top: 2em;
+}
+
+.profile-name-section {
+  display: flex;
+  color: white;
+  font-weight: 300;
+}
+ 

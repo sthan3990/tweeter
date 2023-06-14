@@ -118,14 +118,14 @@ $(document).ready(function (e) {
       <header class="tweet-header">
         
         <div class="tweet-avatar">
-
           <img src="${tweet.user.avatars}" >
+          <h5>${tweet.user.name}</h5>  
 
-          ${tweet.user.name}
-          
         </div>       
-        <p>${tweet.user.handle}</p>      
+        <div class="tweet-user">
 
+           <h5>${tweet.user.handle}</h5>
+        </div>
       </header>
 
       <div class="tweet-container-body">
