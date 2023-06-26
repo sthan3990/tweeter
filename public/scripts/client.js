@@ -11,9 +11,9 @@ $(document).ready(function (e) {
 
     // prevent the default form submission behaviour of restarting the page
     event.preventDefault();
-    
+
     // check if tweet content is >= 140 
-    if($("#tweet-text").val().Length > 140) {
+    if($("#tweet-text").val().length > 140) {
       alert("Tweet is too long, make it shorter!");
     }
     else {

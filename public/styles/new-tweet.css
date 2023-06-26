@@ -42,7 +42,7 @@
   margin-left: auto;
  }
  
- @media screen and (max-width: 768px) {
+ @media screen and (max-width: 1024px) {
   .new-tweet textarea {
     height: 80px;
     width: 360px;
