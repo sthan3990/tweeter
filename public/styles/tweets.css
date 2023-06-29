@@ -3,6 +3,7 @@ article {
   border-color: black;
   margin: 0.5em;
   padding: 0.5em;
+  word-wrap: break-word;
 }
 
 .tweet-header{

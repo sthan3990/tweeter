@@ -6,6 +6,9 @@
 
 $(document).ready(function (e) {
 
+  // load some tweets
+
+
   // Form submission POST
   $("#form-new-tweets").on("submit", function (event) {
 
@@ -13,8 +16,14 @@ $(document).ready(function (e) {
     event.preventDefault();
 
     // check if tweet content is >= 140 
-    if($("#tweet-text").val().length > 140) {
-      alert("Tweet is too long, make it shorter!");
+    if ($("#tweet-text").val().length > 140) {
+
+      $("#errorMessage").text("Error: Tweet is too long, make it shorter!");
+
+    }
+    // check if tweet content is empty 
+    else if ($("#tweet-text").val().length === 0) {
+      $("#errorMessage").text("Error: Tweet can't be blank!");
     }
     else {
        // serialize the form data 
