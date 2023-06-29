@@ -6,7 +6,17 @@
 
 $(document).ready(function (e) {
 
-  // load some tweets
+  // load the initial tweets which is coming from the tweets.js (server folder)
+  $.ajax({
+    url: "/tweets",
+    method: "GET",
+    dataType: "json",
+
+    success: function () { 
+      // show the initial tweets
+      loadTweets();
+    }
+  });
 
 
   // Form submission POST
@@ -17,111 +27,110 @@ $(document).ready(function (e) {
 
     // check if tweet content is >= 140 
     if ($("#tweet-text").val().length > 140) {
-
       $("#errorMessage").text("Error: Tweet is too long, make it shorter!");
-
     }
     // check if tweet content is empty 
     else if ($("#tweet-text").val().length === 0) {
       $("#errorMessage").text("Error: Tweet can't be blank!");
     }
     else {
-       // serialize the form data 
-    let formData = $('form').serialize();
+      // serialize the form data 
+      let formData = $('form').serialize();
 
-    //get the action-url of the form
-    let actionurl = event.currentTarget.action;
+      //get the action-url of the form
+      let actionurl = event.currentTarget.action;
 
-    // send this off (POST)
-    $.post(actionurl, formData);
-    
-    $("#tweet-text").val("");
+      // send this off (POST)
+      $.post(actionurl, formData);
 
-    $("#tweet-text").next().find("output").text("140");
+      $("#tweet-text").val("");
 
-    loadTweets();
+      $("#tweet-text").next().find("output").text("140");
 
-    resetTweetArea();
+      loadTweets();
+
+      resetTweetArea();
     }
   });
-  
-  const resetTweetArea = function () {
-   
-    // clear text area
-    if($("#tweet-text").val().length != 0){
-      $("#tweet-text").val.empty();
-    }
 
+  const resetTweetArea = function () {
+
+    // clear text area
+    $("#tweet-text").val.empty();
     $("#tweet-text").next().find("output").text.empty();
+
+    // reset styling
+    $("#tweet-text").first().next().find("output").css("color", "#545149");
+
+    // clear error message
+    $("#errorMessage").text("Error: Tweet can't be blank!");
+
+  }
+
+const loadTweets = function () {
+
+  $.ajax('/tweets', {
+    method: 'GET',
+    dataType: 'json',
+
+    success: (tweets) => {
+      renderTweets(tweets);
+    },
+    error: (error) => {
+      console.error(error);
+    },
+  });
+};
+
+
+$("#tweet-text").on('input', function (text) {
+
+  let maxCharacters = 140;
+
+  // for example if you delete everything. 
+  if (this.textLength === 0) {
+
+    // reset counter
+    maxCharacters = 140;
 
     // reset styling
     $("#tweet-text").first().next().find("output").css("color", "#545149");
   }
 
-  const loadTweets = function () {
+  maxCharacters -= this.textLength;
 
-    $.ajax('/tweets', {
-      method: 'GET',
-      dataType: 'json',
+  // change the value of <output> </output> 
+  $("#tweet-text").next().find("output").text(maxCharacters);
 
-      success: (tweets) => {
-        renderTweets(tweets);
-      },
-      error: (error) => {
-        console.error(error);
-      },
-    });
-  };
+  if (maxCharacters < 0) {
+    // Output pointer to modify CSS
+    $("#tweet-text").next().find("output").css("color", "red");
+  }
+  else {
+    $("#tweet-text").first().next().find("output").css("color", "#545149");
+  }
+});
 
+const renderTweets = function (tweets) {
 
-  $("#tweet-text").on('input', function (text) {
-    
-    let maxCharacters = 140;
+  $("#tweets-container").empty();
 
-    // for example if you delete everything. 
-    if (this.textLength === 0) {
-
-      // reset counter
-      maxCharacters = 140;
-
-      // reset styling
-      $("#tweet-text").first().next().find("output").css("color", "#545149");
+  if (tweets) {
+    // loops through tweets
+    for (let i = 0; i < tweets.length; i++) {
+      let tweet = createTweetElement(tweets[i]);
+      $("#tweets-container").prepend(tweet);
     }
-
-    maxCharacters -= this.textLength;
-
-    // change the value of <output> </output> 
-    $("#tweet-text").next().find("output").text(maxCharacters);
-
-    if (maxCharacters < 0) {
-      // Output pointer to modify CSS
-      $("#tweet-text").next().find("output").css("color", "red");
-    }
-    else{
-      $("#tweet-text").first().next().find("output").css("color", "#545149");
-    }
-  });
-
-  const renderTweets = function (tweets) {
-
-    $("#tweets-container").empty();
-
-    if(tweets){
-       // loops through tweets
-      for (let i = 0; i < tweets.length; i++) {
-        let tweet = createTweetElement(tweets[i]);
-        $("#tweets-container").prepend(tweet);
-      }
-    }
-   
-    // calls createTweetElement for each tweet
-    // takes return value and appends it to the tweets container
   }
 
+  // calls createTweetElement for each tweet
+  // takes return value and appends it to the tweets container
+}
 
-  const createTweetElement = function (tweet) {
-     
-    let $tweet = `
+
+const createTweetElement = function (tweet) {
+
+  let $tweet = `
       <article>
       
       <header class="tweet-header">
@@ -157,12 +166,12 @@ $(document).ready(function (e) {
       </article>
         
     `;
-    return $tweet;
-  }
+  return $tweet;
+}
 
-  renderTweets();
+renderTweets();
 
 });
- 
+
 
 
